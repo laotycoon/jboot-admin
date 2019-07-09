@@ -1,10 +1,8 @@
 package io.jboot.admin.base.web.base;
 
 import com.jfinal.core.Controller;
-import com.jfinal.kit.Ret;
 import io.jboot.admin.base.common.RegexKey;
 import io.jboot.admin.base.common.RestResult;
-import io.jboot.admin.base.common.RetResult;
 
 /**
  * Json 校验基类

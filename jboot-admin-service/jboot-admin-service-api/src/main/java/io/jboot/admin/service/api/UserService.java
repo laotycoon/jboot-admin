@@ -2,7 +2,6 @@ package io.jboot.admin.service.api;
 
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
-import io.jboot.admin.base.common.RetResult;
 import io.jboot.admin.service.entity.model.User;
 
 import java.util.List;
