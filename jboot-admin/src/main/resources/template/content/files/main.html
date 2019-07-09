@@ -23,19 +23,15 @@
             , size: 'sm' //小尺寸的表格
             , height: 'full-150'    //容器高度
             , cols: [[                  //标题栏
-                {checkbox: false, sort: true, fixed: true, space: true}
-                , {field: 'id', title: 'ID', width: 60}
-                , {field: 'name', title: '商品名称', width: 180}
-                , {field: 'prodDesc', title: '商品描述', width: 250}
-                , {field: 'totalNum', title: '库存数', width: 80}
-                , {field: 'orderedNum', title: '售出数', width: 80}
-                , {field: 'createDate', title: '创建时间', width: 150}
-                , {field: 'lastUpdAcct', title: '最后更新人', width: 100}
-                , {field: 'lastUpdTime', title: '最后更新时间', width: 150}
-                , {field: 'note', title: '备注', width: 150}
+                {field: 'bucketName', title: 'bucketName', width: 150}
+                , {field: 'key', title: 'key', width: 400}
+                , {field: 'eTag', title: 'eTag', width: 250}
+                , {field: 'size', title: 'size', width: 100}
+                , {field: 'lastModified', title: 'lastModified', width: 250}
+                , {field: 'storageClass', title: 'storageClass', width: 250}
                 , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
-            , url: '#(ctxPath)/b2c/product/tableData'
+            , url: '#(ctxPath)/content/files/tableData'
             , method: 'get'
             , request: {
                 pageName: 'pageNumber' //页码的参数名称，默认：page
@@ -49,47 +45,9 @@
             }
         });
 
-        table.on('tool(dateTable)', function(obj){
-            var data = obj.data;
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    util.sendAjax ({
-                        type: 'POST',
-                        url: '#(ctxPath)/b2c/product/delete',
-                        data: {id : data.id},
-                        loadFlag: true,
-                        success : function(data){
-                            layer.close(index);
-                            reloadTableQuery();
-                        },
-                        unSuccess: function (data) {
-                            layer.close(index);
-                        }
-                    })
-                });
-            } else if(obj.event === 'edit') {
-                pop_show('编辑数据','#(ctxPath)/b2c/product/update?id=' + data.id,'','', function(){
-                    reloadTableQuery();
-                });
-            }
-        });
-
-        $("#add").click(function(){
-            pop_show('添加数据','#(ctxPath)/b2c/product/add','','', function(){
-                reloadTableQuery();
-            });
-        });
-
-        reloadTableQuery = function () {
-            table.reload('dateTable', {
-                url: '#(ctxPath)/b2c/product/tableData'
-                ,where: {name: $('#name').val()} //设定异步数据接口的额外参数
-            });
-        }
-
         reloadTable = function (name) {
             table.reload('dateTable', {
-                url: '#(ctxPath)/b2c/product/tableData'
+                url: '#(ctxPath)/content/files/tableData'
                 ,where: {name: name} //设定异步数据接口的额外参数
             });
         }
@@ -107,11 +65,11 @@
         <form id="searchForm" class="layui-form x-center" action="" >
             <div class="layui-form-pane">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">商品名称</label>
+                    <label class="layui-form-label" style="width : 120px">bucketName</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="name" name="name" placeholder="商品名称" class="layui-input"/>
+                        <input type="text" id="name" name="name" placeholder="bucketName" class="layui-input"  style="width : 300px"/>
                     </div>
-                    <div class="layui-input-inline" style="width : 80px">
+                    <div class="layui-input-inline" style="width : 300px">
                         <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
                     </div>
                 </div>
@@ -119,22 +77,13 @@
         </form>
         <hr>
         <div class="layui-row">
-            <div class="layui-btn-group">
-                #shiroHasPermission('/b2c/product/add')
-                <button id="add" class="layui-btn layui-btn-small">新增商品</button>
-                #end
-            </div>
             <table id="dateTable" lay-filter="dateTable"></table>
         </div>
     </div>
 
 <script type="text/html" id="barOption">
-    #shiroHasPermission('/b2c/product/update')
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    #end
-
-    #shiroHasPermission('/b2c/product/delete')
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    #end
+<!--    #shiroHasPermission('/content/files/download')-->
+    <a class="layui-btn layui-btn-xs" lay-event="download">下载</a>
+<!--    #end-->
 </script>
 #end

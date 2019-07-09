@@ -56,9 +56,10 @@ build/
  
 # Package Files #
 *.jar
+!/doc/*
 *.war
 *.ear
- 
+
 ## .gitignore for eclipse
  
 *.pydevproject

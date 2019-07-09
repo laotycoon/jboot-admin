@@ -23,6 +23,12 @@
             <artifactId>jboot-b2c-service-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <!-- AWS 依赖 -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.587</version>
+        </dependency>
     </dependencies>
 
     <build>
